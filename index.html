@@ -1,99 +1,46 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love.Com | Your Romance Partner</title>
-    <style>
-        /* CSS অংশ */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .container { max-width: 450px; width: 100%; }
-        header { text-align: center; color: white; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; }
-        h3 { color: #d63384; margin-top: 0; }
-        .input-group input { width: 80%; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 10px; outline: none; }
-        button { background: #ff4757; color: white; border: none; padding: 10px 25px; border-radius: 25px; cursor: pointer; font-size: 16px; transition: 0.3s; margin-top: 10px; }
-        button:hover { background: #ff6b81; transform: scale(1.05); }
-        button.secondary { background: #54a0ff; }
-        textarea { width: 90%; height: 80px; border-radius: 10px; padding: 10px; border: 1px solid #ddd; resize: none; }
-        .result { margin-top: 15px; font-weight: bold; font-size: 20px; color: #ff4757; }
-        #saved-note { font-style: italic; color: #666; margin-top: 10px; }
-    </style>
+    <title>PowerShare Pro | Secure Transfer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="container">
-        <header>
-            <h1>❤️ Love.Com</h1>
-            <p>যেখানে ভালোবাসা খুঁজে পায় নতুন ভাষা</p>
-        </header>
+        <div class="header">
+            <h2>PowerShare <span class="pro">PRO</span></h2>
+            <div id="safety-badge">SECURE MODE</div>
+        </div>
 
-        <section class="card">
-            <h3>Love Calculator</h3>
-            <div class="input-group">
-                <input type="text" id="name1" placeholder="আপনার নাম">
-                <input type="text" id="name2" placeholder="সঙ্গীর নাম">
+        <div class="battery-display">
+            <div class="battery-outer">
+                <div id="charge-fill" class="charge-fill"></div>
             </div>
-            <button onclick="calculateLove()">ম্যাচ চেক করুন</button>
-            <div id="result" class="result"></div>
-        </section>
+            <h1 id="level-txt">--%</h1>
+            <p id="msg-txt">Ready to Connect</p>
+        </div>
 
-        <section class="card">
-            <h3>প্রেমের উক্তি</h3>
-            <p id="quote-text">"ভালোবাসা হলো একটি সুন্দর অনুভূতি..."</p>
-            <button class="secondary" onclick="generateQuote()">নতুন উক্তি</button>
-        </section>
+        <div class="dashboard">
+            <div class="control-group">
+                <label>Safety Stop Limit: <span id="limit-display">25</span>%</label>
+                <input type="range" id="safety-slider" min="15" max="40" value="25">
+            </div>
 
-        <section class="card">
-            <h3>ব্যক্তিগত লাভ নোট</h3>
-            <textarea id="note-input" placeholder="আপনার মনের কথা এখানে লিখুন..."></textarea>
-            <button class="secondary" onclick="saveNote()">সেভ করুন</button>
-            <p id="saved-note"></p>
-        </section>
+            <div class="realtime-data">
+                <div class="data-box">
+                    <span>Temp</span>
+                    <strong id="temp-val">Normal</strong>
+                </div>
+                <div class="data-box">
+                    <span>Protocol</span>
+                    <strong id="protocol">Safe-Link</strong>
+                </div>
+            </div>
+
+            <button id="mainBtn">INITIATE SECURE TRANSFER</button>
+        </div>
     </div>
-
-    <script>
-        // JavaScript অংশ
-        function calculateLove() {
-            const name1 = document.getElementById('name1').value;
-            const name2 = document.getElementById('name2').value;
-            if (name1 === "" || name2 === "") { alert("দয়া করে দুটি নামই লিখুন!"); return; }
-            const loveScore = Math.floor(Math.random() * 100) + 1;
-            document.getElementById('result').innerHTML = `${name1} এবং ${name2}-এর ভালোবাসার মিল: ${loveScore}% ❤️`;
-        }
-
-        const quotes = [
-            "ভালোবাসা মানে শুধু একে অপরের দিকে চেয়ে থাকা নয়, বরং দুজনে মিলে একই দিকে তাকানো।",
-            "প্রকৃত ভালোবাসা কখনো শেষ হয় না, এটি সময়ের সাথে আরও গভীর হয়।",
-            "তুমি আমার জীবনের সেই সুন্দর কাব্য, যা আমি প্রতিদিন পড়তে চাই।"
-        ];
-
-        function generateQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            document.getElementById('quote-text').innerText = `"${quotes[randomIndex]}"`;
-        }
-
-        function saveNote() {
-            const note = document.getElementById('note-input').value;
-            if (note) {
-                localStorage.setItem('loveNote', note);
-                document.getElementById('saved-note').innerText = "সেভ করা নোট: " + note;
-                alert("নোট সেভ করা হয়েছে!");
-            }
-        }
-
-        window.onload = function() {
-            const saved = localStorage.getItem('loveNote');
-            if (saved) document.getElementById('saved-note').innerText = "সেভ করা নোট: " + saved;
-        };
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
